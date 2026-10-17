@@ -195,11 +195,11 @@ Transformer 编码器先将输入 token 映射为词向量（示例使用 512 �
 注意力分两步：先按查询 $q$ 为输入 $X=\{x_1,\ldots,x_N\}$ 计算分布，再求加权平均：
 
 $$
-\alpha_n=p(z=n\mid X,q)=\operatorname{softmax}_n(s(x_n,q))=\frac{e^{s(x_n,q)}}{\sum_{j=1}^N e^{s(x_j,q)}},
+\alpha_n=p(z=n\mid X,q)=\mathrm{softmax}_n(s(x_n,q))=\frac{e^{s(x_n,q)}}{\sum_{j=1}^N e^{s(x_j,q)}},
 $$
 
 $$
-\operatorname{att}(X,q)=\sum_{n=1}^N\alpha_nx_n=\mathbb E_{z\sim p(z\mid X,q)}[x_z].
+\mathrm{att}(X,q)=\sum_{n=1}^N\alpha_nx_n=\mathbb E_{z\sim p(z\mid X,q)}[x_z].
 $$
 
 ## Apply attention mechanism to model
@@ -248,19 +248,19 @@ Word embedding），即ai=Wxi
 查询—键—值（QKV）矩阵形式：
 
 $$
-Q=XW_Q,\quad K=XW_K,\quad V=XW_V,\qquad H=\operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V.
+Q=XW_Q,\quad K=XW_K,\quad V=XW_V,\qquad H=\mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V.
 $$
 
 ## Self-Attention：矩阵实现
 用矩阵运算来实现和加速
 
-矩阵实现将所有 token 的线性投影、相似度计算和加权求和批量并行化，适合 GPU 加速：$Q=XW_Q$，$K=XW_K$，$V=XW_V$，$H=\operatorname{softmax}(QK^\top/\sqrt{d_k})V$。
+矩阵实现将所有 token 的线性投影、相似度计算和加权求和批量并行化，适合 GPU 加速：$Q=XW_Q$，$K=XW_K$，$V=XW_V$，$H=\mathrm{softmax}(QK^\top/\sqrt{d_k})V$。
 
 ## Self-Attention with Short-cut
 - 采用了残差网络中的short-cut结构，目的是解决深度学
 习中的退化问题
 
-这里在自注意力模块外加残差连接与归一化，缓解深层网络的退化及训练不稳定：$Y=\operatorname{LayerNorm}(X+\operatorname{SelfAttention}(X))$。
+这里在自注意力模块外加残差连接与归一化，缓解深层网络的退化及训练不稳定：$Y=\mathrm{LayerNorm}(X+\mathrm{SelfAttention}(X))$。
 
 ## Multi-Head Attention
 p使用多组𝑄, 𝐾, 𝑉
@@ -274,11 +274,11 @@ Attention相当于h个不
 多头注意力让不同头在不同的投影空间学习关系：
 
 $$
-\operatorname{head}_i=\operatorname{Attention}(QW_i^Q,KW_i^K,VW_i^V),
+\mathrm{head}_i=\mathrm{Attention}(QW_i^Q,KW_i^K,VW_i^V),
 $$
 
 $$
-\operatorname{MultiHead}(Q,K,V)=\operatorname{Concat}(\operatorname{head}_1,\ldots,\operatorname{head}_h)W^O.
+\mathrm{MultiHead}(Q,K,V)=\mathrm{Concat}(\mathrm{head}_1,\ldots,\mathrm{head}_h)W^O.
 $$
 
 ## Multi-Layer Self-Attention
@@ -288,7 +288,7 @@ $$
 一般注意力层将输入投影为键和值，将查询与键对齐并计算上下文：
 
 $$
-k_j=x_jW_K,\quad v_j=x_jW_V,\quad e_{ij}=\frac{q_i\cdot k_j}{\sqrt{D}},\quad a_{ij}=\operatorname{softmax}_j(e_{ij}),\quad y_i=\sum_ja_{ij}v_j.
+k_j=x_jW_K,\quad v_j=x_jW_V,\quad e_{ij}=\frac{q_i\cdot k_j}{\sqrt{D}},\quad a_{ij}=\mathrm{softmax}_j(e_{ij}),\quad y_i=\sum_ja_{ij}v_j.
 $$
 
 ## Self attention layer
@@ -537,9 +537,9 @@ domain的数据，且不经过fine-tunning也能很好地解决
 预训练 Transformer 的主要计算位于嵌入层、注意力层和前馈网络，核心运算多为矩阵乘法。这里比较稠密大模型与混合专家模型（MoE）：前者直接扩大所有参数，后者用门控网络选择部分小模型或专家，并对激活专家的输出加权汇合。
 
 ## 混合专家模型 MoE
-**混合专家模型（MoE）**使用门控网络将输入路由到若干专家，目的是让不同专家专注于不同数据子集或任务情形。其输出可表示为 $y=\sum_{i\in\operatorname{TopK}(G(x))}\tilde G_i(x)E_i(x)$。
+**混合专家模型（MoE）**使用门控网络将输入路由到若干专家，目的是让不同专家专注于不同数据子集或任务情形。其输出可表示为 $y=\sum_{i\in\mathrm{TopK}(G(x))}\tilde G_i(x)E_i(x)$。
 
-典型 MoE 层先以 $G(x)=\operatorname{softmax}(W_Gx)$ 得到各专家的门控分数，再选得分最高的 $K$ 个专家，并对它们的输出加权求和。例如 Mixtral-8×7B 从 8 个专家中激活 2 个。专家通常由前馈网络构成。
+典型 MoE 层先以 $G(x)=\mathrm{softmax}(W_Gx)$ 得到各专家的门控分数，再选得分最高的 $K$ 个专家，并对它们的输出加权求和。例如 Mixtral-8×7B 从 8 个专家中激活 2 个。专家通常由前馈网络构成。
 
 将 Transformer 块内的普通前馈网络（FFN）替换为 MoE 层：注意力层继续处理 token 间信息，路由器为各 token 选择专家前馈网络。这样可增加总参数量而限制单次激活的参数量。
 
