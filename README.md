@@ -11,10 +11,10 @@
 - [课程简介与课件索引](大模型架构/README.md)
 - [阅读梳理](大模型架构/阅读梳理.md)
 
-- [第 01 讲：Introduction: From the Perceptron](大模型架构/第01讲.md)
-- [第 02 讲：Multilayer Perceptrons & Backpropagation](大模型架构/第02讲.md)
-- [第 03 讲：Training Deep Networks](大模型架构/第03讲.md)
-- [第 04 讲：Convolutional Neural Networks](大模型架构/第04讲.md)
+- [第 01 讲：从感知机理解机器学习](大模型架构/第01讲.md)
+- [第 02 讲：多层感知机与反向传播](大模型架构/第02讲.md)
+- [第 03 讲：怎样稳定训练深层网络](大模型架构/第03讲.md)
+- [第 04 讲：卷积神经网络与经典视觉架构](大模型架构/第04讲.md)
 
 ### 机器学习原理
 

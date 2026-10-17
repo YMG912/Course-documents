@@ -6,7 +6,7 @@
 
 ## 课件
 
-- [第 01 讲：Introduction: From the Perceptron](第01讲.md)
-- [第 02 讲：Multilayer Perceptrons & Backpropagation](第02讲.md)
-- [第 03 讲：Training Deep Networks](第03讲.md)
-- [第 04 讲：Convolutional Neural Networks](第04讲.md)
+- [第 01 讲：从感知机理解机器学习](第01讲.md)
+- [第 02 讲：多层感知机与反向传播](第02讲.md)
+- [第 03 讲：怎样稳定训练深层网络](第03讲.md)
+- [第 04 讲：卷积神经网络与经典视觉架构](第04讲.md)
