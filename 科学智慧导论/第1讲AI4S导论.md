@@ -643,7 +643,7 @@ p三类偏好划分并不互斥，可混合引入
 以神经网络 $f(x,t;w)$ 近似待求解的场 $u(x,t)$。物理问题由偏微分方程、初始条件和边界条件组成：
 
 $$
-\mathcal N[u](x,t)=h(x,t),\quad x\in\Omega,\ t\in(0,T);
+\mathcal N\lbrack u\rbrack(x,t)=h(x,t),\quad x\in\Omega,\ t\in(0,T);
 $$
 
 $$
@@ -651,7 +651,7 @@ u(x,0)=u_0(x),\quad x\in\Omega;
 $$
 
 $$
-\mathcal B[u](x,t)=g(x,t),\quad x\in\partial\Omega,\ t\in(0,T).
+\mathcal B\lbrack u\rbrack(x,t)=g(x,t),\quad x\in\partial\Omega,\ t\in(0,T).
 $$
 
 PINN 将观测数据与物理约束共同纳入损失，例如
